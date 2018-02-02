@@ -1,0 +1,78 @@
+<template name="projet">
+
+  <div class="loader-container">
+    <div class="analyse">Analyze en cours...</div>
+    <div class="progress_loader float shadow">
+      <div class="progress__item"></div>
+    </div>
+  </div>
+
+<div class="body">
+<div class="container pageProject">
+
+  <div class="card-body">
+    <div class="card text-center">
+      <div class="cardHeader">
+        <span class="testError"></span>
+        <h3 class="margintop1rem">Error</h3>
+        <p>5 erreurs, 4 notices</p>
+        <span class="buttonExpand" data-id="collapseError">
+          <i class="fa fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="clearfix"></div>
+      <div class="marginSides collapse" id="collapseError">
+        <table class="table">
+        <tbody>
+          
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card text-center">
+      <div class="cardHeader">
+        <span class="testWarning"></span>
+        <h3 class="margintop1rem">Stats</h3>
+        <p>5 erreurs, 4 notices</p>
+        <span class="buttonExpand" data-id="collapseStats">
+          <i class="fa fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="clearfix"></div>
+      <div class="marginSides collapse" id="collapseStats">
+        <table class="table">
+        <tbody>
+          
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+ <div class="card-body">
+    <div class="card text-center">
+      <div class="cardHeader">
+        <span class="testValidate"></span>
+        <h3 class="margintop1rem">Sucess</h3>
+        <p>5 erreurs, 4 notices</p>
+        <span class="buttonExpand" data-id="collapseSucess">
+          <i class="fa fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="clearfix"></div>
+      <div class="marginSides collapse" id="collapseSucess">
+        <table class="table">
+        <tbody>
+          
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+    <div id="result"></div>
+    <div id="response"></div>
+</div>
+</div>
+</template>
