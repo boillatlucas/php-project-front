@@ -13,7 +13,7 @@ Template.home.events({
         var repository = event.target.repository.value;
         var email = event.target.email.value;
 
-        Meteor.call('createProject', {
+        createProject({
           repository: repository,
           email: email
         });
@@ -23,9 +23,8 @@ Template.home.events({
 Template.projet.onRendered(function(){
 
     let slug = $(location).attr('pathname').split('/');
-    //console.log(slug[2]);
     run_every_sec = setInterval(function (){
-          Meteor.call('getProject', {slug: slug[2],run_every_sec: run_every_sec},function(error, result) {
+        getProject({slug: slug[2],run_every_sec: run_every_sec},function(error, result) {
 
           });
    } , 3000);
@@ -37,8 +36,6 @@ Template.projet.destroyed = function() {
 
 Template.projet.events({
   "click .buttonExpand":function(event, template){
-    //jQ(event.target);
-    //console.log(template);
     var button = $(event.target).closest('.buttonExpand');
     var zone = template.$(event.target).closest('.card').find('.collapse');
     if(zone.is(":visible")){
@@ -135,17 +132,23 @@ Template.home.onRendered(function(){
 
     var headers = getHeaders();
 
-    HTTP.call( 'POST', 'http://localhost:8888/api/get-details/',{
-        data: {},
-        headers: headers
-    }, function( error, response ) {
-        if ( error ) {
-            console.log(error);
-        } else {
-          $('#email').val(response.data.success.email);
-          $('#labelEmail').addClass('active');
-        }
-    });
+    if(headers.Authorization != null)
+    {
+      HTTP.call( 'POST', 'http://localhost:8888/api/get-details/',{
+          data: {},
+          headers: headers
+      }, function( error, response ) {
+          if ( error ) {
+              console.error(error);
+          } else {
+            if(response.data != null)
+            {
+              $('#email').val(response.data.success.email);
+              $('#labelEmail').addClass('active');
+            }
+          }
+      });
+    }
 
     var url = new URL(window.location.href);
     if(url.searchParams.get("successLogout") == "")

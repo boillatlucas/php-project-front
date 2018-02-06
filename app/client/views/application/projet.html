@@ -1,95 +1,96 @@
 <template name="projet">
 
   <div class="loader-container" style="display:none">
-    <div class="analyse">Analyzes in progress ...</div>
+    <div class="analyse">Analyze in progress ...</div>
     <div class="progress_loader float shadow">
       <div class="progress__item"></div>
     </div>
   </div>
 
 <div class="body">
+  <h3 id="titleGit"></h3>
 <div class="container pageProject" style="display:none">
 
   <div class="card-body">
-    <div class="card text-center">
-      <div class="cardHeader">
-        <span class="testError"></span>
-        <h3 class="margintop1rem">Error</h3>
-        <p id="pError">0 found</p>
-        <span class="buttonExpand" data-id="collapseError">
-          <i class="fa fa-angle-down" aria-hidden="true"></i>
-        </span>
-      </div>
-      <div class="clearfix"></div>
-      <div class="marginSides collapse" id="collapseError">
-        <table class="table">
-        <tbody>
+        <div class="card text-center">
+          <div class="cardHeader">
+            <span class="testError"></span>
+            <h3 class="margintop1rem">Error</h3>
+            <p id="pError">0 found</p>
+            <span class="buttonExpand" data-id="collapseError">
+              <i class="fa fa-angle-down" id="angleError" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="clearfix"></div>
+          <div class="marginSides collapse" id="collapseError">
+            <table class="table">
+            <tbody>
 
-        </tbody>
-        </table>
+            </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="card text-center">
-      <div class="cardHeader">
-        <span class="testWarning"></span>
-        <h3 class="margintop1rem">Warning</h3>
-        <p id="pWarning">0 found</p>
-        <span class="buttonExpand" data-id="collapseWarning">
-          <i class="fa fa-angle-down" aria-hidden="true"></i>
-        </span>
-      </div>
-      <div class="clearfix"></div>
-      <div class="marginSides collapse" id="collapseWarning">
-        <table class="table">
-        <tbody>
+      <div class="card-body">
+        <div class="card text-center">
+          <div class="cardHeader">
+            <span class="testWarning"></span>
+            <h3 class="margintop1rem">Warning</h3>
+            <p id="pWarning">0 found</p>
+            <span class="buttonExpand" data-id="collapseWarning">
+              <i class="fa fa-angle-down" id="angleWarning" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="clearfix"></div>
+          <div class="marginSides collapse" id="collapseWarning">
+            <table class="table">
+            <tbody>
 
-        </tbody>
-        </table>
+            </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="card text-center">
-      <div class="cardHeader">
-        <span class="testStats"></span>
-        <h3 class="margintop1rem">Stats</h3>
-        <p id="pStats">Statistics on your project files</p>
-        <span class="buttonExpand" data-id="collapseStats">
-          <i class="fa fa-angle-down" aria-hidden="true"></i>
-        </span>
-      </div>
-      <div class="clearfix"></div>
-      <div class="marginSides collapse" id="collapseStats">
-        <table class="table">
-        <tbody>
+      <div class="card-body">
+        <div class="card text-center">
+          <div class="cardHeader">
+            <span class="testStats"></span>
+            <h3 class="margintop1rem">Stats</h3>
+            <p id="pStats">Statistics on your project files</p>
+            <span class="buttonExpand" data-id="collapseStats">
+              <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="clearfix"></div>
+          <div class="marginSides collapse" id="collapseStats">
+            <table class="table">
+            <tbody>
 
-        </tbody>
-        </table>
+            </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
- <div class="card-body">
-    <div class="card text-center">
-      <div class="cardHeader">
-        <span class="testValidate"></span>
-        <h3 class="margintop1rem">Sucess</h3>
-        <p id="pSucces">Successful analyzes</p>
-        <span class="buttonExpand" data-id="collapseSucess">
-          <i class="fa fa-angle-down" aria-hidden="true"></i>
-        </span>
-      </div>
-      <div class="clearfix"></div>
-      <div class="marginSides collapse" id="collapseSucess">
-        <table class="table">
-        <tbody>
+     <div class="card-body">
+        <div class="card text-center">
+          <div class="cardHeader">
+            <span class="testValidate"></span>
+            <h3 class="margintop1rem">Sucess</h3>
+            <p id="pSucces">Successful analyzes</p>
+            <span class="buttonExpand" data-id="collapseSucess">
+              <i class="fa fa-angle-down" id="angleSucess" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="clearfix"></div>
+          <div class="marginSides collapse" id="collapseSucess">
+            <table class="table">
+            <tbody>
 
-        </tbody>
-        </table>
+            </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
     <div id="result"></div>
     <div id="response"></div>
