@@ -29,7 +29,7 @@ Template.projet.onRendered(function(){
           Meteor.call('getProject', {slug: slug[2],run_every_sec: run_every_sec},function(error, result) {
                
           });
-   } , 1000);
+   } , 3000);
     //console.log(run_every_sec);   
 });
 

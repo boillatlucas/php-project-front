@@ -117,6 +117,17 @@ input{
     width:100px;
     color: #f80;
 }
+
+.testStats:before {
+    content: "\f080";
+    font-family: FontAwesome;
+    font-size: 5rem;
+    left: 0px;
+    position:absolute;
+    top:0;
+    width:80px;
+    color: #15aabf;
+}
 .testError:before {
     content: "\f00d";
     font-family: FontAwesome;

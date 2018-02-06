@@ -15,7 +15,7 @@
       <div class="cardHeader">
         <span class="testError"></span>
         <h3 class="margintop1rem">Error</h3>
-        <p>5 erreurs, 4 notices</p>
+        <p id="pError">0 found</p>
         <span class="buttonExpand" data-id="collapseError">
           <i class="fa fa-angle-down" aria-hidden="true"></i>
         </span>
@@ -34,8 +34,28 @@
     <div class="card text-center">
       <div class="cardHeader">
         <span class="testWarning"></span>
+        <h3 class="margintop1rem">Warning</h3>
+        <p id="pWarning">0 found</p>
+        <span class="buttonExpand" data-id="collapseWarning">
+          <i class="fa fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="clearfix"></div>
+      <div class="marginSides collapse" id="collapseWarning">
+        <table class="table">
+        <tbody>
+          
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card text-center">
+      <div class="cardHeader">
+        <span class="testStats"></span>
         <h3 class="margintop1rem">Stats</h3>
-        <p>5 erreurs, 4 notices</p>
+        <p id="pStats">Statistics on your project files</p>
         <span class="buttonExpand" data-id="collapseStats">
           <i class="fa fa-angle-down" aria-hidden="true"></i>
         </span>
@@ -55,7 +75,7 @@
       <div class="cardHeader">
         <span class="testValidate"></span>
         <h3 class="margintop1rem">Sucess</h3>
-        <p>5 erreurs, 4 notices</p>
+        <p id="pSucces">Successful analyzes</p>
         <span class="buttonExpand" data-id="collapseSucess">
           <i class="fa fa-angle-down" aria-hidden="true"></i>
         </span>
