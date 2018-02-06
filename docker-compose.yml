@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+    meteor:
+        build: .
+        volumes:
+            - "./app:/app"
+        ports:
+            - "80:8080"

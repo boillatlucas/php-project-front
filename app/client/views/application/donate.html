@@ -1,0 +1,48 @@
+<template name="donate">
+<div class="body">
+<div class="container pageAccueil">
+<div class="row">
+  <div class="card-body">
+    <div class="card card-accueil">
+      <div class="text-center">
+        <h3>Donate</h3>
+        <hr class="mt-2 mb-2">
+      </div>
+          <div style="margin: 0 auto;text-align:center">
+    <!--  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="buttonDonate">
+        <input type="hidden" name="cmd" value="_donations">
+        <input type="hidden" name="business" value="modenaquentin@gmail.com">
+        <input type="hidden" name="lc" value="FR">
+        <input type="hidden" name="item_name" value="PHP code tester">
+        <input type="hidden" name="no_note" value="0">
+        <input type="hidden" name="currency_code" value="EUR">
+        <input type="hidden" name="bn" value="PP-DonationsBF:paypal-min.png:NonHostedGuest">
+        <button type="submit" class="btn btn-primary waves-effect waves-light"><img style="width:150px" src="/images/cb.png"/><br><img style="width:100px" src="/images/paypal-min.png"/></button>
+        <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+      </form>-->
+
+      <form target="_blank" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" >
+      <input type="hidden" name="cmd" value="_s-xclick">
+      <input type="hidden" name="hosted_button_id" value="K489WM46W9V2N">
+      <button type="submit" class="btn btn-primary waves-effect waves-light"><img style="width:150px" src="/images/cb.png"/><br><img style="width:100px" src="/images/paypal-min.png"/></button>
+      <img alt="" border="0" src="https://www.sandbox.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+      </form>
+
+
+        <form target="_blank" action="https://www.coinpayments.net/index.php" method="post" class="buttonDonate">
+        	<input type="hidden" name="cmd" value="_donate">
+        	<input type="hidden" name="reset" value="1">
+        	<input type="hidden" name="merchant" value="e26b4c1fce5829b0926c77b756cd6745">
+        	<input type="hidden" name="currency" value="EUR">
+        	<input type="hidden" name="item_name" value="Donate">
+          <button type="submit" class="btn btn-primary waves-effect waves-light"><img style="width:100px" src="/images/coinbase.png"/></button>
+        </form>
+
+</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+</template>
