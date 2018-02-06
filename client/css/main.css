@@ -73,6 +73,9 @@ input{
 .margintop1rem{
   padding-top: 1rem;
 }
+.pageMyProject i{
+  font-size:2rem;
+}
 /*PAGE PROJET*/
 .resultTest{
   position: absolute;
@@ -343,4 +346,32 @@ input{
 /*DONATE*/
 .buttonDonate{
   display:inline-block;
+}
+
+/*BLOC LOGIN*/
+#login{
+  position: absolute;
+  //top: 0px;
+  right: 0px;
+  height: 30px;
+
+}
+#login .btn{
+  font-size: 1.1rem !important;
+}
+
+.goToTest{
+  position:absolute;
+  right:0px;
+  top:0px;
+  height: 100%;
+}
+.goToTest a{
+  font-size: 1rem;
+  transform: translate(0%, 70%);
+}
+.pageMyProject .project{
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+  position: relative;
 }

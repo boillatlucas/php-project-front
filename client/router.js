@@ -13,6 +13,15 @@ Router.route('/project/:_id', {
     }
 });
 
+Router.route('/disconnect', {
+    data: function(){
+        disconnect();
+        sessionStorage.removeItem('name');
+        sessionStorage.removeItem('token');
+        Router.go('/?successLogout');
+    }
+});
+
 Router.route('/contact', {
     name: 'contact'
 });
@@ -27,4 +36,19 @@ Router.route('/legal', {
 
 Router.route('/donate', {
     name: 'donate'
+});
+
+Router.route('/sign-in', {
+    name: 'signin'
+});
+
+Router.route('/sign-up', {
+    name: 'signup'
+});
+
+Router.route('/my-projects', {
+    name: 'myprojects',
+    data: function(){
+      listMyProjects();
+    }
 });

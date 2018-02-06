@@ -8,6 +8,15 @@
           <h3>Home</h3>
           <hr class="mt-2 mb-2">
         </div>
+
+      <div id="successLogout" class="alert alert-success" style="display:none; margin-bottom: 10px;">
+          Lougout successful.
+      </div>
+
+      <div id="successLogIn" class="alert alert-success" style="display:none; margin-bottom: 10px;">
+          Log in successful.
+      </div>
+
       <p class="texteAccueil">Test flaws and vulnerabilities of a project php Git</p>
 
       <form>
@@ -23,7 +32,7 @@
           <div class="md-form">
             <i class="fa fa-envelope prefix grey-text"></i>
             <input type="email" name="email" id="email" class="form-control"/>
-            <label for="email">Email</label>
+            <label id="labelEmail" for="email">Email</label>
           </div>
         </div>
         <button type="submit" class="btn btn-primary waves-effect waves-light">Analize</button>

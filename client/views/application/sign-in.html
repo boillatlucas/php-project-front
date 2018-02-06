@@ -1,0 +1,47 @@
+<template name="signin">
+<div class="body">
+<div class="container pageAccueil">
+<div class="row">
+  <div class="card-body">
+    <div class="card card-accueil">
+      <div class="text-center">
+          <h3>Sign in</h3>
+          <hr class="mt-2 mb-2">
+        </div>
+
+      <div id="errorCredentials" class="error alert alert-danger" style="display:none; margin-bottom: 10px;">
+        Incorrect username or password.
+      </div>
+
+      <div id="okCredentials" class="alert alert-success" style="display:none; margin-bottom: 10px;">
+        Log in successful.
+      </div>
+
+      <div class="clearfix"></div>
+      <p class="texteAccueil">Sign in to your account</p>
+
+      <form>
+        <div class="div-form">
+          <div class="md-form">
+            <i class="fa fa-envelope prefix grey-text"></i>
+            <input type="text" name="email" id="email" class="form-control"/>
+            <label for="email">Email</label>
+          </div>
+        </div>
+
+        <div class="div-form">
+          <div class="md-form">
+            <i class="fa fa-key prefix grey-text"></i>
+            <input type="password" name="password" id="password" class="form-control"/>
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary waves-effect waves-light">Sign in</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+</template>

@@ -1,0 +1,59 @@
+<template name="signup">
+<div class="body">
+<div class="container pageAccueil">
+<div class="row">
+  <div class="card-body">
+    <div class="card card-accueil">
+      <div class="text-center">
+          <h3>Sign up</h3>
+          <hr class="mt-2 mb-2">
+        </div>
+
+      <div class="error alert alert-danger" style="display:none; margin-bottom: 10px;">
+
+      </div>
+
+      <p class="texteAccueil">Create a new account.</p>
+
+      <form>
+        <div class="div-form">
+          <div class="md-form">
+            <i class="fa fa-user prefix grey-text"></i>
+            <input type="text" name="name" id="name" class="form-control"/>
+            <label for="name">Name</label>
+          </div>
+        </div>
+
+        <div class="div-form">
+          <div class="md-form">
+            <i class="fa fa-envelope prefix grey-text"></i>
+            <input type="email" name="email" id="email" class="form-control"/>
+            <label for="email">Email</label>
+          </div>
+        </div>
+
+        <div class="div-form">
+          <div class="md-form">
+            <i class="fa fa-key prefix grey-text"></i>
+            <input type="password" name="password" id="password" class="form-control"/>
+            <label for="password">Password</label>
+          </div>
+        </div>
+
+        <div class="div-form">
+          <div class="md-form">
+            <i class="fa fa-key prefix grey-text"></i>
+            <input type="password" name="c_password" id="c_password" class="form-control"/>
+            <label for="c_password">Confirm password</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary waves-effect waves-light">Analize</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+</template>
