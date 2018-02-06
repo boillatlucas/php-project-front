@@ -14,10 +14,10 @@ Meteor.methods({
                     
                   if(response.data.return.project.analyzed !== null){
                       
-//                      console.log('fini');                
+                      //console.log('fini');                
                       clearInterval(data.run_every_sec);
                       //return false;
-                        //console.log( response );
+                       // console.log( response );
 
                       //$('#response').append(response.content);
 
@@ -28,17 +28,52 @@ Meteor.methods({
                       
                       $('#collapseSucess > table > tbody').empty();
                       $('#collapseStats  > table > tbody').empty();
-                      for (var i = 0; i < Object.keys(rlog.SUCCESS).length; i++) {
-                          console.log(rlog.SUCCESS[i].final_output);
-                          $('#collapseSucess > table > tbody').append('<tr><td>'+rlog.SUCCESS[i].final_output+'</td></tr>')
-                        }
-//                      for (var i = 0; i < Object.keys(rlog.STATS).length; i++) {
+                      $('#collapseWarning > table > tbody').empty();
+                      $('#pWarning').empty();
+                      $('#pSucces').empty();
+                      
+                      if(rlog.SUCCESS != undefined){
+                          for (var i = 0; i < Object.keys(rlog.SUCCESS).length; i++) {
+    //                          console.log(rlog.SUCCESS[i].final_output);
+                              $('#collapseSucess > table > tbody').append('<tr><td>'+rlog.SUCCESS[i].final_output+'</td></tr>')
+                            }
+                          $('#pSucces').append(i +" successful analyzes");
+                      }else{
+                           $('#pSucces').append("0 successful analyzes");
+                      }
+                       
+                      
+                      if(rlog.STATS != undefined){
+                          for (var i = 0; i < Object.keys(rlog.STATS).length; i++) {
+    //                          console.log(rlog.STATS[i].final_output);
+                              //$('#pStats').append(rlog.STATS[i].final_output);
+    //                          console.log(rlog.STATS[i].logs_lines);
+                              for (var j = 0; j < Object.keys(rlog.STATS[i].logs_lines).length; j++) {
+    //                              console.log(rlog.STATS[i].logs_lines[j]);
+                                  $('#collapseStats > table > tbody').append('<tr><td>'+rlog.STATS[i].logs_lines[j].content+'</td></tr>')
+                              }
+                           }
+                         
+                      }
+                      
+                      if(rlog.WARNING != undefined){
+                        for (var i = 0; i < Object.keys(rlog.WARNING).length; i++) {
 //                          console.log(rlog.STATS[i].final_output);
-//                          $('#collapseStats > table > tbody').append('<tr><td>'+rlog.STATS[i].final_output+'</td></tr>')
-//                        }
+                           $('#collapseWarning > table > tbody').append('<tr><td><b>'+rlog.WARNING[i].final_output+'</b></td></tr>')
+//                          console.log(rlog.STATS[i].logs_lines);
+                          for (var j = 0; j < Object.keys(rlog.WARNING[i].logs_lines).length; j++) {
+//                              console.log(rlog.STATS[i].logs_lines[j]);
+                              $('#collapseWarning > table > tbody').append('<tr><td>'+rlog.WARNING[i].logs_lines[j].content+'</td></tr>')
+                          }
+                       }
+                          $('#pWarning').append(j +" found");
+                      }else{
+                          $('#pWarning').append("0 found");
+                      }
+                      
                   
                   }else{                     
-//                      console.log('en cours'); 
+                      //console.log('en cours'); 
                   }
             }
         }
