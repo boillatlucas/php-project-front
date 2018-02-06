@@ -13,13 +13,9 @@ input{
 }
 .md-form label{
   font-size: 1.3rem !important;
-  //font-weight: normal !important;
 }
 .md-form label.active{
   font-size: 1rem !important;
-}
-.card-body .btn-primary{
-  //background-color: #29485F !important;
 }
 .body{
   background: linear-gradient(52deg, #5383e8, #3991ef 31%, #3892f0 32%, #3594f1 36%, #00b2ff);
@@ -191,7 +187,6 @@ input{
   width: 100%;
   height: 50%;
   background: linear-gradient(to top, #00b2ff, #3991ef);
-  //background: linear-gradient(180deg, #5383e8, #3991ef 31%, #3892f0 32%, #3594f1 36%, #00b2ff);
   z-index: -1;
   transition: top 1.2s linear 3.1s;
 }
@@ -203,7 +198,6 @@ input{
   width: 100%;
   height: 50%;
   background: linear-gradient(to bottom, #00b2ff, #3892f0);
-  //background: linear-gradient(180deg, #00b2ff, #3594f1 31%, #3892f0 32%, #3991ef 36%, #5383e8);
   z-index: -1;
   transition: bottom 1.2s linear 3.1s;
 }
@@ -362,7 +356,6 @@ input{
 /*BLOC LOGIN*/
 #login{
   position: absolute;
-  //top: 0px;
   right: 0px;
   height: 30px;
 
