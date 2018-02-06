@@ -9,7 +9,7 @@ Router.route('/', {
 Router.route('/project/:_id', {
     name: "projet",
     data: function(){
-        Meteor.call('getProject', {slug: this.params._id});
+        getProject({slug: this.params._id});
     }
 });
 

@@ -1,77 +1,75 @@
 urlApi = 'http://localhost:8888';
 
-Meteor.methods({
-    'getProject': function(data){
-      var headers = getHeaders();
+getProject = function(data){
+  var headers = getHeaders();
 
-      HTTP.call( 'GET', urlApi+'/api/project/'+data.slug, {
-        params: {},
-        headers: headers
-      }, function( error, response ) {
-          //var analized = [];
-          //let tools = ['PHPParallelLint','PHPLoc','PHPCPD','PHPCodeFixer'];
-        if ( error ) {
-          console.log( error );
-        } else {
-            if(response.data.return_code == "FAILED"){
-                alert('FAILED ! ');
-            } else if(response.data.return_code == "OK"){
+  HTTP.call( 'GET', urlApi+'/api/project/'+data.slug, {
+    params: {},
+    headers: headers
+  }, function( error, response ) {
+      //var analized = [];
+      //let tools = ['PHPParallelLint','PHPLoc','PHPCPD','PHPCodeFixer'];
+    if ( error ) {
+      console.log( error );
+    } else {
+        if(response.data.return_code == "FAILED"){
+            alert('FAILED ! ');
+        } else if(response.data.return_code == "OK"){
 
-                  if(response.data.return.project.analyzed !== null){
+              if(response.data.return.project.analyzed !== null){
 
-                      console.log('fini');
-                      clearInterval(data.run_every_sec);
+                  console.log('fini');
+                  clearInterval(data.run_every_sec);
 
-                      //$('#response').append(response.content);
+                  //$('#response').append(response.content);
 
-                      var rlog = response.data.return.project.logs;
+                  var rlog = response.data.return.project.logs;
 
-                      $('.loader-container').addClass('done');
-                      $('.progress_loader').addClass('done');
-                      $('.loader-container').hide();
-                      $('.pageProject').show();
+                  $('.loader-container').addClass('done');
+                  $('.progress_loader').addClass('done');
+                  //$('.loader-container').hide();
+                  $('.pageProject').show();
 
-                      $('#collapseSucess > table > tbody').empty();
-                      $('#collapseStats  > table > tbody').empty();
-                      for (var i = 0; i < Object.keys(rlog.SUCCESS).length; i++) {
-                          console.log(rlog.SUCCESS[i].final_output);
-                          $('#collapseSucess > table > tbody').append('<tr><td>'+rlog.SUCCESS[i].final_output+'</td></tr>')
-                        }
+                  $('#collapseSucess > table > tbody').empty();
+                  $('#collapseStats  > table > tbody').empty();
+                  for (var i = 0; i < Object.keys(rlog.SUCCESS).length; i++) {
+                      console.log(rlog.SUCCESS[i].final_output);
+                      $('#collapseSucess > table > tbody').append('<tr><td>'+rlog.SUCCESS[i].final_output+'</td></tr>')
+                    }
 //                      for (var i = 0; i < Object.keys(rlog.STATS).length; i++) {
 //                          console.log(rlog.STATS[i].final_output);
 //                          $('#collapseStats > table > tbody').append('<tr><td>'+rlog.STATS[i].final_output+'</td></tr>')
 //                        }
 
-                  }else{
-                    $('.loader-container').show();
-                  }
-            }
+              }else{
+                $('.loader-container').show();
+              }
         }
-      });
-    },
-
-    'createProject': function(data){
-        //console.log(data);
-        var headers = getHeaders();
-
-        HTTP.call( 'POST', urlApi+'/api/project', {
-            data: { repository: data.repository, email: data.email },
-            headers: headers
-        }, function( error, response ) {
-            if ( error ) {
-                console.log( error );
-            } else {
-                //console.log(response.data);
-                if(response.data.return_code == "OK"){
-                    Router.go("/project/"+response.data.return.project_saved.slug);
-                }else if(response.data.return_code == "FAILED"){
-                    alert('error ! ');
-                }
-
-            }
-        });
     }
-});
+  });
+}
+
+createProject = function(data){
+    //console.log(data);
+    var headers = getHeaders();
+
+    HTTP.call( 'POST', urlApi+'/api/project', {
+        data: { repository: data.repository, email: data.email },
+        headers: headers
+    }, function( error, response ) {
+        if ( error ) {
+            console.log( error );
+        } else {
+            //console.log(response.data);
+            if(response.data.return_code == "OK"){
+                Router.go("/project/"+response.data.return.project_saved.slug);
+            }else if(response.data.return_code == "FAILED"){
+                alert('error ! ');
+            }
+
+        }
+    });
+}
 
 signUp = function(data){
     //console.log(data);
@@ -161,8 +159,6 @@ displayLogin = function(){
 listMyProjects = function(){
   var headers = getHeaders();
 
-  console.log(headers);
-
   HTTP.call( 'GET', urlApi+'/api/user-projects/',{
       data: {},
       headers: headers
@@ -170,10 +166,8 @@ listMyProjects = function(){
       if ( error ) {
           console.log(error);
       } else {
-        console.log(response.data);
         if(response.data.count_result > 0){
           for(var project in response.data.return){
-              console.log(response.data.return[project])
               var slug = '/project/'+response.data.return[project].slug;
               var date = new Date(response.data.return[project].created_at);
               var optionsDate = {year: "numeric", month: "numeric", day: "numeric"};
