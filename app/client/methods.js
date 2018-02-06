@@ -1,56 +1,97 @@
 urlApi = 'http://localhost:8888';
 
 getProject = function(data){
-  var headers = getHeaders();
-
   HTTP.call( 'GET', urlApi+'/api/project/'+data.slug, {
-    params: {},
-    headers: headers
-  }, function( error, response ) {
-      //var analized = [];
-      //let tools = ['PHPParallelLint','PHPLoc','PHPCPD','PHPCodeFixer'];
-    if ( error ) {
-      console.log( error );
-    } else {
-        if(response.data.return_code == "FAILED"){
-            alert('FAILED ! ');
-        } else if(response.data.return_code == "OK"){
+        params: {},
+        headers: getHeaders()
+      }, function( error, response ) {
+        if ( error ) {
+          console.error( error );
+        } else {
+            if(response.data.return_code == "FAILED"){
+                alert('FAILED ! ');
+            } else if(response.data.return_code == "OK"){
 
-              if(response.data.return.project.analyzed !== null){
+                  if(response.data.return.project.analyzed !== null){
 
-                  console.log('fini');
-                  clearInterval(data.run_every_sec);
+                      $('#titleGit').text(response.data.return.project.repository_url);
 
-                  //$('#response').append(response.content);
+                      clearInterval(data.run_every_sec);
 
-                  var rlog = response.data.return.project.logs;
+                      $('.loader-container').addClass('done');
+                      $('.progress_loader').addClass('done');
+                      $('.pageProject').show();
 
-                  $('.loader-container').addClass('done');
-                  $('.progress_loader').addClass('done');
-                  //$('.loader-container').hide();
-                  $('.pageProject').show();
+                      $('#collapseSucess > table > tbody').empty();
+                      $('#collapseStats  > table > tbody').empty();
+                      $('#collapseWarning > table > tbody').empty();
+                      $('#collapseError > table > tbody').empty();
 
-                  $('#collapseSucess > table > tbody').empty();
-                  $('#collapseStats  > table > tbody').empty();
-                  for (var i = 0; i < Object.keys(rlog.SUCCESS).length; i++) {
-                      console.log(rlog.SUCCESS[i].final_output);
-                      $('#collapseSucess > table > tbody').append('<tr><td>'+rlog.SUCCESS[i].final_output+'</td></tr>')
-                    }
-//                      for (var i = 0; i < Object.keys(rlog.STATS).length; i++) {
-//                          console.log(rlog.STATS[i].final_output);
-//                          $('#collapseStats > table > tbody').append('<tr><td>'+rlog.STATS[i].final_output+'</td></tr>')
-//                        }
+                      $('#pWarning').empty();
+                      $('#pSucces').empty();
+                      $('#pError').empty();
 
-              }else{
-                $('.loader-container').show();
-              }
+                      $('#angleSucess').show();
+                      $('#angleWarning').show();
+                      $('#angleError').show();
+
+                      var rlog = response.data.return.project.logs;
+
+                      if(rlog.SUCCESS != undefined){
+                          for (var i = 0; i < Object.keys(rlog.SUCCESS).length; i++) {
+                              $('#collapseSucess > table > tbody').append('<tr><td>'+rlog.SUCCESS[i].final_output+'</td></tr>')
+                            }
+                          $('#pSucces').append(i +" successful analyzes");
+                      }else{
+                           $('#pSucces').append("0 successful analyzes");
+                           $('#angleSucess').hide();
+                      }
+
+
+                      if(rlog.STATS != undefined){
+                          for (var i = 0; i < Object.keys(rlog.STATS).length; i++) {
+                              for (var j = 0; j < Object.keys(rlog.STATS[i].logs_lines).length; j++) {
+                                  $('#collapseStats > table > tbody').append('<tr><td>'+rlog.STATS[i].logs_lines[j].content+'</td></tr>')
+                              }
+                           }
+                      }
+
+                      if(rlog.WARNING != undefined){
+                        for (var i = 0; i < Object.keys(rlog.WARNING).length; i++) {
+                           $('#collapseWarning > table > tbody').append('<tr><td><b>'+rlog.WARNING[i].final_output+'</b></td></tr>')
+                          for (var j = 0; j < Object.keys(rlog.WARNING[i].logs_lines).length; j++) {
+                              $('#collapseWarning > table > tbody').append('<tr><td>'+rlog.WARNING[i].logs_lines[j].content+'</td></tr>')
+                          }
+                        }
+                          $('#pWarning').append(j +" found");
+                      }else{
+                          $('#pWarning').append("0 found");
+                          $('#angleWarning').hide();
+                      }
+
+                      if(rlog.ERROR != undefined){
+                        for (var i = 0; i < Object.keys(rlog.ERROR).length; i++) {
+                           $('#collapseError > table > tbody').append('<tr><td><b>'+rlog.ERROR[i].final_output+'</b></td></tr>')
+                          for (var j = 0; j < Object.keys(rlog.ERROR[i].logs_lines).length; j++) {
+                              $('#collapseError > table > tbody').append('<tr><td>'+rlog.ERROR[i].logs_lines[j].content+'</td></tr>')
+                          }
+                        }
+                          $('#pError').append(j +" found");
+                      }else{
+                          $('#pError').append("0 found");
+                          $('#angleError').hide();
+                      }
+
+
+                  }else{
+                      $('.loader-container').show();
+                  }
+            }
         }
-    }
-  });
+      });
 }
 
 createProject = function(data){
-    //console.log(data);
     var headers = getHeaders();
 
     HTTP.call( 'POST', urlApi+'/api/project', {
@@ -58,9 +99,8 @@ createProject = function(data){
         headers: headers
     }, function( error, response ) {
         if ( error ) {
-            console.log( error );
+            console.error( error );
         } else {
-            //console.log(response.data);
             if(response.data.return_code == "OK"){
                 Router.go("/project/"+response.data.return.project_saved.slug);
             }else if(response.data.return_code == "FAILED"){
@@ -72,13 +112,11 @@ createProject = function(data){
 }
 
 signUp = function(data){
-    //console.log(data);
     HTTP.call( 'POST', urlApi+'/api/register/', {
         data: { name: data.name, email: data.email, password: data.password, c_password: data.c_password }
     }, function( error, response ) {
         if ( error ) {
             var textError = "";
-            console.log(response.data);
             for(var error in response.data.error){
 
               textError += "<p>"+response.data.error[error]+"</p>";
@@ -94,7 +132,6 @@ signUp = function(data){
 },
 
 signIn = function(data){
-    //console.log(data);
     HTTP.call( 'POST', urlApi+'/api/login/', {
         data: { email: data.email, password: data.password }
     }, function( error, response ) {
@@ -164,7 +201,7 @@ listMyProjects = function(){
       headers: headers
   }, function( error, response ) {
       if ( error ) {
-          console.log(error);
+          console.error(error);
       } else {
         if(response.data.count_result > 0){
           for(var project in response.data.return){

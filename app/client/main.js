@@ -36,8 +36,6 @@ Template.projet.destroyed = function() {
 
 Template.projet.events({
   "click .buttonExpand":function(event, template){
-    //jQ(event.target);
-    //console.log(template);
     var button = $(event.target).closest('.buttonExpand');
     var zone = template.$(event.target).closest('.card').find('.collapse');
     if(zone.is(":visible")){
@@ -141,7 +139,7 @@ Template.home.onRendered(function(){
           headers: headers
       }, function( error, response ) {
           if ( error ) {
-              console.log(error);
+              console.error(error);
           } else {
             if(response.data != null)
             {
