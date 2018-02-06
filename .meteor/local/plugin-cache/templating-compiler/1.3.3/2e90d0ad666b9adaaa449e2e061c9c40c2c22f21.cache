@@ -1,0 +1,1 @@
+{"head":"<base href=\"/\">\n  <title>Todos</title>","body":"","js":"\nTemplate.body.addContent((function() {\n  var view = this;\n  return HTML.getTag(\"app\")();\n}));\nMeteor.startup(Template.body.renderToDocument);\n","bodyAttrs":{}}
