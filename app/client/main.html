@@ -14,10 +14,54 @@
     </body>
 
 
-    <footer class="footer">
+    <!--Navbar-->
+    <nav class="navbar navbar-light hidden-sm hidden-md hidden-lg hidden-xl">
+        <!-- Navbar brand -->
+        <div class="navbar-brand navbar-brand-menuSm" href="#"></div>
+        <!-- Collapse button -->
+        <button class="navbar-toggler toggler-example collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <div class='animated-icon'>
+              <span></span>
+              <span></span>
+              <span></span>
+            </diV>
+          </button>
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto navbar-addlogin">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item myProjectsMenu" style="display:none">
+                    <a class="nav-link" href="/my-projects">My projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/donate">Donate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/legal">Legal</a>
+                </li>
+            </ul>
+            <!-- Links -->
+        </div>
+        <!-- Collapsible content -->
+    </nav>
+    <!--/.Navbar-->
+
+
+
+    <footer class="footer hidden-sm-down hidden-xs">
       <div class="container pull-right">
         <a class="navbar-brand" href="/">Home</a>
-        <a class="navbar-brand" href="/my-projects" id="myProjects" style="display:none">My projects</a>
+        <a class="navbar-brand myProjectsMenu" href="/my-projects" style="display:none">My projects</a>
         <a class="navbar-brand" href="/contact">Contact</a>
         <a class="navbar-brand" href="/about">About</a>
         <a class="navbar-brand" href="/donate">Donate</a>
@@ -25,9 +69,7 @@
         <a target="_blank" class="navbar-brand navbar-brand-svg" href="https://github.com/boillatlucas/php-project-scanner"><img src="/images/github-icon.svg" width="30" height="30" alt=""></a>
       </div>
 
-      <div id="login">
-
-      </div>
+      <div id="login"></div>
     </footer>
 
 </template>
