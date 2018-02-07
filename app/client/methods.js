@@ -95,7 +95,7 @@ createProject = function(data){
     var headers = getHeaders();
 
     HTTP.call( 'POST', urlApi+'/api/project', {
-        data: { repository: data.repository, email: data.email },
+        data: { repository: data.repository, email: data.email, branch: data.branch },
         headers: headers
     }, function( error, response ) {
         if ( error ) {
@@ -103,12 +103,61 @@ createProject = function(data){
         } else {
             if(response.data.return_code == "OK"){
                 Router.go("/project/"+response.data.return.project_saved.slug);
+                console.log(response);
             }else if(response.data.return_code == "FAILED"){
                 alert('error ! ');
             }
 
         }
     });
+}
+
+testRepo = function(data){
+
+  var urlGithub = 'https://api.github.com/repos/';
+  var repo = data.repository;
+
+  var explode = repo.split("/");
+
+  if(explode[2] == "github.com"){
+    if(data.branch != "")
+    {
+      createProject(data);
+    }
+    else {
+      var projectName = explode[4].replace(/\.git$/, '');
+
+      urlGithub += explode[3] + '/' + projectName + '/branches';
+
+      console.log(urlGithub);
+
+      $('.btn-analyze').hide();
+      $('.loader-analyze').show();
+
+      HTTP.call( 'GET', urlGithub, {}, function(error, response){
+        if(response.data.length > 1)
+        {
+          $('.select-element').remove();
+          for(var branch in response.data)
+          {
+            branchName = response.data[branch].name;
+            $('.browser-default').append('<option value="'+branchName+'" class="select-element">'+branchName+'</option>');
+            $('.div-form-select').show();
+            $('.btn-analyze').show();
+            $('.loader-analyze').hide();
+          }
+        }
+        else if(response.data.length == 1)
+        {
+          createProject(data);
+        }
+      });
+    }
+  }
+  else {
+    $('.error').show();
+    $('.error').html('Repository url must come from github.com');
+  }
 }
 
 signUp = function(data){

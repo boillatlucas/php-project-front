@@ -12,11 +12,18 @@ Template.home.events({
         event.preventDefault();
         var repository = event.target.repository.value;
         var email = event.target.email.value;
+        var branch = event.target.branch.value;
 
-        createProject({
+        testRepo({
+          repository: repository,
+          email: email,
+          branch: branch
+        });
+
+        /*createProject({
           repository: repository,
           email: email
-        });
+        });*/
     }
 });
 

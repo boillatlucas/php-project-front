@@ -17,16 +17,11 @@
           Log in successful.
       </div>
 
+      <div class="error alert alert-danger" style="display:none; margin-bottom: 10px;"></div>
+
       <p class="texteAccueil">Test flaws and vulnerabilities of a project php Git</p>
 
       <form>
-        <div class="div-form">
-          <div class="md-form">
-            <i class="fa fa-link prefix grey-text"></i>
-            <input type="text" name="repository" id="repository" class="form-control"/>
-            <label for="repository">Repository URL</label>
-          </div>
-        </div>
 
         <div class="div-form">
           <div class="md-form">
@@ -35,7 +30,28 @@
             <label id="labelEmail" for="email">Email</label>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary waves-effect waves-light">Analyze</button>
+
+        <div class="div-form">
+          <div class="md-form">
+            <i class="fa fa-link prefix grey-text"></i>
+            <input type="text" name="repository" id="repository" class="form-control"/>
+            <label for="repository">Repository URL</label>
+          </div>
+        </div>
+
+        <div class="div-form div-form-select" style="display:none">
+          <div class="md-form md-select">
+            <i class="fa fa-code-fork prefix grey-text"></i>
+              <label>Choose your branch</label>
+              <select class="browser-default" name="branch">
+                <option value="" disabled selected>Choose your branch</option>
+              </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary waves-effect waves-light btn-analyze">Analyze</button>
+
+        <div class="loader-analyze" style="display:none"></div>
       </form>
     </div>
   </div>
