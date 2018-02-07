@@ -129,7 +129,7 @@ signUp = function(data){
             Router.go('home');
         }
     });
-},
+}
 
 signIn = function(data){
     HTTP.call( 'POST', urlApi+'/api/login/', {
@@ -180,16 +180,24 @@ disconnect = function(){
 }
 
 displayLogin = function(){
+  $('body').on('click', '.nav-item', function(){
+    $('.navbar-toggler').click();
+  });
+
   var name = sessionStorage.getItem("name");
   var token = sessionStorage.getItem("token");
 
+  $('.hideDisplayLogin').remove();
+
   if(name == null) {
     $('#login').html('<a class="navbar-brand" href="/sign-in">Sign in</a> <a class="navbar-brand" href="/sign-up">Sign up</a>');
-    $('#myProjects').hide();
+    $('.navbar-addlogin').append('<li class="nav-item hideDisplayLogin"><a class="nav-link" href="/sign-in">Sign in</a></li><li class="nav-item hideDisplayLogin"><a class="nav-link" href="/sign-up">Sign up</a></li>')
+    $('.myProjectsMenu').hide();
   }
   else {
+    $('.navbar-addlogin').append('<li class="nav-item hideDisplayLogin"><a class="nav-link" href="/disconnect">Disconnect</a></li>')
     $('#login').html('<a class="navbar-brand" href="/disconnect">Disconnect</a>');
-    $('#myProjects').show();
+    $('.myProjectsMenu').show();
   }
 }
 
