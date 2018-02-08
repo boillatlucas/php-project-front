@@ -82,6 +82,9 @@ input{
 .marginSides{
   margin: 0 5% 0 5%;
 }
+.pageProject{
+  margin-top:40px;
+}
 .pageProject .cardHeader{
   padding-left: 100px;
   padding-right: 100px;
@@ -120,6 +123,16 @@ input{
     top:0;
     width:100px;
     color: #f80;
+}
+.github:before {
+    content: "\f09b";
+    font-family: FontAwesome;
+    font-size: 5rem;
+    left: 0px;
+    position:absolute;
+    top:0;
+    width:100px;
+    color: black;
 }
 
 .testStats:before {
@@ -169,7 +182,6 @@ input{
 .body{
   z-index: 10;
 }
-
 /*LOADING*/
 .loader-container {
   position: fixed;
@@ -349,6 +361,12 @@ input{
 
 .navbar-brand-svg{
     padding: 10px!important;
+}
+
+#titleGit{
+  margin-top: 35px;
+  padding: 25px !important;
+  margin-bottom: 0 !important;
 }
 
 /*DONATE*/
