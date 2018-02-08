@@ -14,7 +14,7 @@ Template.home.events({
         var email = event.target.email.value;
         var branch = event.target.branch.value;
 
-        testRepo({
+        createProject({
           repository: repository,
           email: email,
           branch: branch
@@ -24,6 +24,14 @@ Template.home.events({
           repository: repository,
           email: email
         });*/
+    },
+    'change #repository': function(event, template) {
+
+      var repository = event.target.value;
+
+      testRepo({
+        repository: repository
+      });
     }
 });
 
@@ -180,6 +188,11 @@ Template.projet.onRendered(function(){
 });
 Template.signin.onRendered(function(){
     displayLogin();
+
+    var url = new URL(window.location.href);
+    if(url.searchParams.get("errorEmailExist") == "")
+      $('#errorEmailExist').show();
+    $('#email').val(url.searchParams.get("email"));
 });
 Template.signup.onRendered(function(){
     displayLogin();

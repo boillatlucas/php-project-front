@@ -365,8 +365,7 @@ input{
 
 #titleGit{
   margin-top: 35px;
-  padding: 25px !important;
-  margin-bottom: 0 !important;
+  padding-top: 1rem;
 }
 
 /*DONATE*/
@@ -526,17 +525,19 @@ input{
 
 
 .loader-analyze {
-  margin: auto;
-    border: 10px solid #f3f3f3; /* Light grey */
-    border-top: 10px solid #0275d8; /* Blue */
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    text-align:center;
-    animation: spin 2s linear infinite;
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: normal;
+  color: #4285F4
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+#errorCVEparent{
+  position: relative;
+  top: 50%;
+  margin: 120px;
+  color: white;
+  font-size: 1.8rem;
+}
+#errorCVE{
+  float: left;position: relative;
 }
