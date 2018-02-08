@@ -164,7 +164,7 @@ input{
   overflow:hidden;
 }
 .loader-container.done{
-  left: -100%;
+  display: none;
 }
 .body{
   z-index: 10;
@@ -378,4 +378,8 @@ input{
   padding: 20px 0;
   border-bottom: 1px solid #eee;
   position: relative;
+}
+.errorCVE{
+    position: fixed;
+    bottom: 0;
 }

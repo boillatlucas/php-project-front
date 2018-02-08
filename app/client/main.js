@@ -17,6 +17,8 @@ Template.home.events({
           repository: repository,
           email: email
         });
+      
+      
     }
 });
 
@@ -28,6 +30,7 @@ Template.projet.onRendered(function(){
 
           });
    } , 3000);
+    getCVE();
 });
 
 Template.projet.destroyed = function() {
@@ -120,7 +123,15 @@ Template.contact.events({
         return false;
     }
 
-      $('#Astatus').fadeIn('fast');
+      
+      
+      contact({
+          fullname: name,
+          email: email,
+          sujet: subject,
+          message: message
+        });
+      
     //document.getElementById('contact-form').submit();
      //$('.alert').addClass('alert-danger').text('Une erreur s\'est produite pendant la mise à jour du stock.').fadeIn('fast');
   }

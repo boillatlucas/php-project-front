@@ -85,6 +85,7 @@ getProject = function(data){
 
                   }else{
                       $('.loader-container').show();
+                      
                   }
             }
         }
@@ -110,6 +111,36 @@ createProject = function(data){
         }
     });
 }
+
+getCVE = function(data){
+    HTTP.call( 'GET', 'http://cve.circl.lu/api/search/php/php', {      
+    }, function( error, response ) {
+        if ( error ) {
+            console.error( error );
+        } else {
+              var i = 0;
+		      setInterval(function(){
+                   i++;
+                    $('#errorCVE').html('<a target="_blank" href="https://cve.circl.lu/cve/'+response.data[i].id+'" title="Click for more detail">'+response.data[i].summary+'</a>');
+              }, 1000);
+        }
+    });
+}
+
+contact = function(data){
+    HTTP.call( 'POST', urlApi+'/api/contact/', {
+        data: { fullname: data.fullname, email: data.email, sujet: data.sujet, message: data.message }
+    }, function( error, response ) {
+        if ( error ) {
+             console.error(error);
+            $('#AstatusError').fadeIn('fast');
+           
+        } else {
+           console.log(response);
+            $('#Astatus').fadeIn('fast');
+        }
+    });
+},
 
 signUp = function(data){
     HTTP.call( 'POST', urlApi+'/api/register/', {
