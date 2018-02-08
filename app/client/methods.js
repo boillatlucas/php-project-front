@@ -122,7 +122,7 @@ getCVE = function(data){
 		      setInterval(function(){
                    i++;
                     $('#errorCVE').html('<a target="_blank" href="https://cve.circl.lu/cve/'+response.data[i].id+'" title="Click for more detail">'+response.data[i].summary+'</a>');
-              }, 1000);
+              }, 8000);
         }
     });
 }
