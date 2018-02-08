@@ -12,9 +12,10 @@ getProject = function(data){
                 alert('FAILED ! ');
             } else if(response.data.return_code == "OK"){
 
-                  if(response.data.return.project.analyzed !== null){
+                  if(false && response.data.return.project.analyzed !== null){
 
-                      $('#titleGit').text(response.data.return.project.repository_url);
+                      $('#titleGit').html("<a target='_blank' href='"+response.data.return.project.repository_url+"'>"+response.data.return.project.repository_url+"</a>");
+                      $('#pBranchGit').html('Branch : '+response.data.return.project.branch);
 
                       clearInterval(data.run_every_sec);
 
@@ -93,10 +94,17 @@ getProject = function(data){
 }
 
 createProject = function(data){
+
+  var repo = data.repository;
+
+  var explode = repo.split("/");
+
+  if(explode[2] == "github.com"){
+    $('.error').hide();
     var headers = getHeaders();
 
     HTTP.call( 'POST', urlApi+'/api/project', {
-        data: { repository: data.repository, email: data.email },
+        data: { repository: data.repository, email: data.email, branch: data.branch },
         headers: headers
     }, function( error, response ) {
         if ( error ) {
@@ -110,6 +118,48 @@ createProject = function(data){
 
         }
     });
+  }
+  else {
+    $('.error').show();
+    $('.error').html('Repository url must come from github.com');
+  }
+
+}
+
+testRepo = function(data){
+
+  var urlGithub = 'https://api.github.com/repos/';
+  var repo = data.repository;
+
+  var explode = repo.split("/");
+
+  if(explode[2] == "github.com"){
+      $('.error').hide();
+
+      var projectName = explode[4].replace(/\.git$/, '');
+
+      urlGithub += explode[3] + '/' + projectName + '/branches';
+
+      $('.loader-analyze').show();
+
+      HTTP.call( 'GET', urlGithub, {}, function(error, response){
+        if(response.data.length > 0)
+        {
+          $('.select-element').remove();
+          for(var branch in response.data)
+          {
+            branchName = response.data[branch].name;
+            $('.browser-default').append('<option value="'+branchName+'" class="select-element">'+branchName+'</option>');
+            $('.loader-analyze').hide();
+          }
+        }
+      });
+
+  }
+  else {
+    $('.error').show();
+    $('.error').html('Repository url must come from github.com');
+  }
 }
 
 getCVE = function(data){
@@ -149,7 +199,9 @@ signUp = function(data){
         if ( error ) {
             var textError = "";
             for(var error in response.data.error){
-
+              if(response.data.error[error] == "An user already exist with this email."){
+                Router.go('/sign-in/?email='+data.email+'&errorEmailExist');
+              }
               textError += "<p>"+response.data.error[error]+"</p>";
             };
             $('.error').html(textError);
@@ -160,7 +212,7 @@ signUp = function(data){
             Router.go('home');
         }
     });
-},
+}
 
 signIn = function(data){
     HTTP.call( 'POST', urlApi+'/api/login/', {
@@ -211,16 +263,24 @@ disconnect = function(){
 }
 
 displayLogin = function(){
+  $('body').on('click', '.nav-item', function(){
+    $('.navbar-toggler').click();
+  });
+
   var name = sessionStorage.getItem("name");
   var token = sessionStorage.getItem("token");
 
+  $('.hideDisplayLogin').remove();
+
   if(name == null) {
     $('#login').html('<a class="navbar-brand" href="/sign-in">Sign in</a> <a class="navbar-brand" href="/sign-up">Sign up</a>');
-    $('#myProjects').hide();
+    $('.navbar-addlogin').append('<li class="nav-item hideDisplayLogin"><a class="nav-link" href="/sign-in">Sign in</a></li><li class="nav-item hideDisplayLogin"><a class="nav-link" href="/sign-up">Sign up</a></li>')
+    $('.myProjectsMenu').hide();
   }
   else {
+    $('.navbar-addlogin').append('<li class="nav-item hideDisplayLogin"><a class="nav-link" href="/disconnect">Disconnect</a></li>')
     $('#login').html('<a class="navbar-brand" href="/disconnect">Disconnect</a>');
-    $('#myProjects').show();
+    $('.myProjectsMenu').show();
   }
 }
 
@@ -252,4 +312,16 @@ listMyProjects = function(){
 
       }
   });
+}
+
+
+changeMessageLoader = function(id, message){
+  var timeAnimation = 400;
+
+  $("#errorCVE").animate({left: '2000px'}, timeAnimation, "swing", function(){
+    $("#errorCVE").html('<a target="_blank" href="/'+id+'">'+message+"</a>");
+    $("#errorCVE").css('left','-2000px');
+    $("#errorCVE").animate({left: '0px'}, timeAnimation);
+  });
+
 }

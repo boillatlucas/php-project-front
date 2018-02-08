@@ -12,13 +12,21 @@ Template.home.events({
         event.preventDefault();
         var repository = event.target.repository.value;
         var email = event.target.email.value;
+        var branch = event.target.branch.value;
 
         createProject({
           repository: repository,
-          email: email
+          email: email,
+          branch: branch
         });
-      
-      
+    },
+    'change #repository': function(event, template) {
+
+      var repository = event.target.value;
+
+      testRepo({
+        repository: repository
+      });
     }
 });
 
@@ -123,15 +131,15 @@ Template.contact.events({
         return false;
     }
 
-      
-      
+
+
       contact({
           fullname: name,
           email: email,
           sujet: subject,
           message: message
         });
-      
+
     //document.getElementById('contact-form').submit();
      //$('.alert').addClass('alert-danger').text('Une erreur s\'est produite pendant la mise à jour du stock.').fadeIn('fast');
   }
@@ -184,6 +192,11 @@ Template.projet.onRendered(function(){
 });
 Template.signin.onRendered(function(){
     displayLogin();
+
+    var url = new URL(window.location.href);
+    if(url.searchParams.get("errorEmailExist") == "")
+      $('#errorEmailExist').show();
+    $('#email').val(url.searchParams.get("email"));
 });
 Template.signup.onRendered(function(){
     displayLogin();
