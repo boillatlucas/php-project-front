@@ -12,12 +12,13 @@ getProject = function(data){
                 alert('FAILED ! ');
             } else if(response.data.return_code == "OK"){
 
-                  if(false && response.data.return.project.analyzed !== null){
+                  if(response.data.return.project.analyzed !== null){
 
                       $('#titleGit').html("<a target='_blank' href='"+response.data.return.project.repository_url+"'>"+response.data.return.project.repository_url+"</a>");
                       $('#pBranchGit').html('Branch : '+response.data.return.project.branch);
 
                       clearInterval(data.run_every_sec);
+                      clearInterval(runCve);
 
                       $('.loader-container').addClass('done');
                       $('.progress_loader').addClass('done');
@@ -86,7 +87,7 @@ getProject = function(data){
 
                   }else{
                       $('.loader-container').show();
-                      
+
                   }
             }
         }
@@ -163,16 +164,19 @@ testRepo = function(data){
 }
 
 getCVE = function(data){
-    HTTP.call( 'GET', 'http://cve.circl.lu/api/search/php/php', {      
+    HTTP.call( 'GET', 'http://cve.circl.lu/api/search/php/php', {
     }, function( error, response ) {
         if ( error ) {
             console.error( error );
         } else {
               var i = 0;
-		      setInterval(function(){
+
+		       runCve = setInterval(function(){
                    i++;
-                    $('#errorCVE').html('<a target="_blank" href="https://cve.circl.lu/cve/'+response.data[i].id+'" title="Click for more detail">'+response.data[i].summary+'</a>');
-              }, 8000);
+                   console.log(new Date);
+                   changeMessageLoader(response.data[i].id, response.data[i].summary);
+                    //$('#errorCVE').html('<a target="_blank" href="https://cve.circl.lu/cve/'+response.data[i].id+'" title="Click for more detail">'+response.data[i].summary+'</a>');
+              }, 10000);
         }
     });
 }
@@ -184,10 +188,12 @@ contact = function(data){
         if ( error ) {
              console.error(error);
             $('#AstatusError').fadeIn('fast');
-           
         } else {
-           console.log(response);
+          if(response.data.return_code == "FAILED"){
+              $('#AstatusError').fadeIn('fast');
+          } else if(response.data.return_code == "OK"){
             $('#Astatus').fadeIn('fast');
+          }
         }
     });
 },
@@ -318,8 +324,10 @@ listMyProjects = function(){
 changeMessageLoader = function(id, message){
   var timeAnimation = 400;
 
+  console.log('changemessageloader');
+
   $("#errorCVE").animate({left: '2000px'}, timeAnimation, "swing", function(){
-    $("#errorCVE").html('<a target="_blank" href="/'+id+'">'+message+"</a>");
+    $("#errorCVE").html('<a target="_blank" href="https://cve.circl.lu/cve/'+id+'">'+message+"</a>");
     $("#errorCVE").css('left','-2000px');
     $("#errorCVE").animate({left: '0px'}, timeAnimation);
   });

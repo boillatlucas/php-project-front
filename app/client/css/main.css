@@ -541,3 +541,9 @@ input{
 #errorCVE{
   float: left;position: relative;
 }
+#errorCVE a{
+  color: white;
+}
+#errorCVE a:hover{
+  color: #23527c;
+}
