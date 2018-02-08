@@ -103,7 +103,6 @@ createProject = function(data){
         } else {
             if(response.data.return_code == "OK"){
                 Router.go("/project/"+response.data.return.project_saved.slug);
-                console.log(response);
             }else if(response.data.return_code == "FAILED"){
                 alert('error ! ');
             }
@@ -128,8 +127,6 @@ testRepo = function(data){
       var projectName = explode[4].replace(/\.git$/, '');
 
       urlGithub += explode[3] + '/' + projectName + '/branches';
-
-      console.log(urlGithub);
 
       $('.btn-analyze').hide();
       $('.loader-analyze').show();
