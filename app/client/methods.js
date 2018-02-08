@@ -14,9 +14,11 @@ getProject = function(data){
 
                   if(response.data.return.project.analyzed !== null){
 
-                      $('#titleGit').text(response.data.return.project.repository_url);
+                      $('#titleGit').html("<a target='_blank' href='"+response.data.return.project.repository_url+"'>"+response.data.return.project.repository_url+"</a>");
+                      $('#pBranchGit').html('Branch : '+response.data.return.project.branch);
 
                       clearInterval(data.run_every_sec);
+                      clearInterval(runCve);
 
                       $('.loader-container').addClass('done');
                       $('.progress_loader').addClass('done');
@@ -85,6 +87,7 @@ getProject = function(data){
 
                   }else{
                       $('.loader-container').show();
+
                   }
             }
         }
@@ -92,6 +95,13 @@ getProject = function(data){
 }
 
 createProject = function(data){
+
+  var repo = data.repository;
+
+  var explode = repo.split("/");
+
+  if(explode[2] == "github.com"){
+    $('.error').hide();
     var headers = getHeaders();
 
     HTTP.call( 'POST', urlApi+'/api/project', {
@@ -109,6 +119,12 @@ createProject = function(data){
 
         }
     });
+  }
+  else {
+    $('.error').show();
+    $('.error').html('Repository url must come from github.com');
+  }
+
 }
 
 testRepo = function(data){
@@ -119,43 +135,68 @@ testRepo = function(data){
   var explode = repo.split("/");
 
   if(explode[2] == "github.com"){
-    if(data.branch != "")
-    {
-      createProject(data);
-    }
-    else {
+      $('.error').hide();
+
       var projectName = explode[4].replace(/\.git$/, '');
 
       urlGithub += explode[3] + '/' + projectName + '/branches';
 
-      $('.btn-analyze').hide();
       $('.loader-analyze').show();
 
       HTTP.call( 'GET', urlGithub, {}, function(error, response){
-        if(response.data.length > 1)
+        if(response.data.length > 0)
         {
           $('.select-element').remove();
           for(var branch in response.data)
           {
             branchName = response.data[branch].name;
             $('.browser-default').append('<option value="'+branchName+'" class="select-element">'+branchName+'</option>');
-            $('.div-form-select').show();
-            $('.btn-analyze').show();
             $('.loader-analyze').hide();
           }
         }
-        else if(response.data.length == 1)
-        {
-          createProject(data);
-        }
       });
-    }
+
   }
   else {
     $('.error').show();
     $('.error').html('Repository url must come from github.com');
   }
 }
+
+getCVE = function(data){
+    HTTP.call( 'GET', 'http://cve.circl.lu/api/search/php/php', {
+    }, function( error, response ) {
+        if ( error ) {
+            console.error( error );
+        } else {
+              var i = 0;
+
+		       runCve = setInterval(function(){
+                   i++;
+                   console.log(new Date);
+                   changeMessageLoader(response.data[i].id, response.data[i].summary);
+                    //$('#errorCVE').html('<a target="_blank" href="https://cve.circl.lu/cve/'+response.data[i].id+'" title="Click for more detail">'+response.data[i].summary+'</a>');
+              }, 10000);
+        }
+    });
+}
+
+contact = function(data){
+    HTTP.call( 'POST', urlApi+'/api/contact/', {
+        data: { fullname: data.fullname, email: data.email, sujet: data.sujet, message: data.message }
+    }, function( error, response ) {
+        if ( error ) {
+             console.error(error);
+            $('#AstatusError').fadeIn('fast');
+        } else {
+          if(response.data.return_code == "FAILED"){
+              $('#AstatusError').fadeIn('fast');
+          } else if(response.data.return_code == "OK"){
+            $('#Astatus').fadeIn('fast');
+          }
+        }
+    });
+},
 
 signUp = function(data){
     HTTP.call( 'POST', urlApi+'/api/register/', {
@@ -164,7 +205,9 @@ signUp = function(data){
         if ( error ) {
             var textError = "";
             for(var error in response.data.error){
-
+              if(response.data.error[error] == "An user already exist with this email."){
+                Router.go('/sign-in/?email='+data.email+'&errorEmailExist');
+              }
               textError += "<p>"+response.data.error[error]+"</p>";
             };
             $('.error').html(textError);
@@ -275,4 +318,18 @@ listMyProjects = function(){
 
       }
   });
+}
+
+
+changeMessageLoader = function(id, message){
+  var timeAnimation = 400;
+
+  console.log('changemessageloader');
+
+  $("#errorCVE").animate({left: '2000px'}, timeAnimation, "swing", function(){
+    $("#errorCVE").html('<a target="_blank" href="https://cve.circl.lu/cve/'+id+'">'+message+"</a>");
+    $("#errorCVE").css('left','-2000px');
+    $("#errorCVE").animate({left: '0px'}, timeAnimation);
+  });
+
 }
