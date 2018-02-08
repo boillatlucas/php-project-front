@@ -21,7 +21,6 @@ Template.home.events({
         });
     },
     'change #repository': function(event, template) {
-
       var repository = event.target.value;
 
       testRepo({
