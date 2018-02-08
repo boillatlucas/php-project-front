@@ -18,7 +18,10 @@ getProject = function(data){
                       $('#pBranchGit').html('Branch : '+response.data.return.project.branch);
 
                       clearInterval(data.run_every_sec);
-                      clearInterval(runCve);
+
+                      if (typeof runCve !== 'undefined') {
+                        clearInterval(runCve);
+                      }
 
                       $('.loader-container').addClass('done');
                       $('.progress_loader').addClass('done');
