@@ -176,7 +176,6 @@ getCVE = function(data){
 
 		       runCve = setInterval(function(){
                    i++;
-                   console.log(new Date);
                    changeMessageLoader(response.data[i].id, response.data[i].summary);
                     //$('#errorCVE').html('<a target="_blank" href="https://cve.circl.lu/cve/'+response.data[i].id+'" title="Click for more detail">'+response.data[i].summary+'</a>');
               }, 10000);
@@ -326,8 +325,6 @@ listMyProjects = function(){
 
 changeMessageLoader = function(id, message){
   var timeAnimation = 400;
-
-  console.log('changemessageloader');
 
   $("#errorCVE").animate({left: '2000px'}, timeAnimation, "swing", function(){
     $("#errorCVE").html('<a target="_blank" href="https://cve.circl.lu/cve/'+id+'">'+message+"</a>");
