@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+    meteor:
+        image: abdev/php-sec_front
+        labels:
+            io.rancher.container.pull_image: always
+
+    lb:
+        image: rancher/load-balancer-service
+        ports:
+            - 80:8080
+        depends_on:
+            - meteor
+        links:
+            - meteor
