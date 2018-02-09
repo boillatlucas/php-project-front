@@ -6,6 +6,7 @@ import './main.html';
 import './methods.js';
 import './router.js';
 
+document.title = "LADQ Security";
 
 Template.home.events({
   'submit form': function(event, template) {
