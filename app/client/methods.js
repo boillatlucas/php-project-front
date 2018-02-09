@@ -227,7 +227,7 @@ signUp = function(data){
         } else {
             sessionStorage.setItem("name",response.data.success.token);
             sessionStorage.setItem("token",response.data.success.token);
-            Router.go('home');
+            Router.go('/?successSignUp');
         }
     });
 }
@@ -243,7 +243,7 @@ signIn = function(data){
         } else {
             sessionStorage.setItem("name",response.data.success.name);
             sessionStorage.setItem("token",response.data.success.token);
-            Router.go('/');
+            Router.go('/?successLogIn');
         }
     });
 }
