@@ -177,16 +177,19 @@ testRepo = function(data){
 }
 
 getCVE = function(data){
-    HTTP.call( 'GET', 'http://cve.circl.lu/api/search/php/php', {
+    HTTP.call( 'GET', urlApi+'/api/cve', {
     }, function( error, response ) {
         if ( error ) {
             console.error( error );
         } else {
               var i = 0;
 
+              var data = JSON.parse(response.content);
+                changeMessageLoader(data[i].id, data[i].summary);
+
 		       runCve = setInterval(function(){
                    i++;
-                   changeMessageLoader(response.data[i].id, response.data[i].summary);
+                   changeMessageLoader(data[i].id, data[i].summary);
                     //$('#errorCVE').html('<a target="_blank" href="https://cve.circl.lu/cve/'+response.data[i].id+'" title="Click for more detail">'+response.data[i].summary+'</a>');
               }, 10000);
         }
