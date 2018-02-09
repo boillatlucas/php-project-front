@@ -21,7 +21,6 @@ Template.home.events({
         });
     },
     'change #repository': function(event, template) {
-
       var repository = event.target.value;
 
       testRepo({
@@ -174,6 +173,9 @@ Template.home.onRendered(function(){
       $('#successLogout').show();
     if(url.searchParams.get("successLogIn") == "")
       $('#successLogIn').show();
+    if(url.searchParams.get("successSignUp") == "")
+      $('#successSignUp').show();
+
 });
 Template.about.onRendered(function(){
     displayLogin();

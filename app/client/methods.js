@@ -103,7 +103,7 @@ createProject = function(data){
 
   var explode = repo.split("/");
 
-  if(explode[2] == "github.com"){
+  if(typeof explode[2] !== 'undefined' && explode[2] == "github.com"){
     $('.error').hide();
     var headers = getHeaders();
 
@@ -137,27 +137,37 @@ testRepo = function(data){
 
   var explode = repo.split("/");
 
-  if(explode[2] == "github.com"){
+  if(typeof explode[2] !== 'undefined' && explode[2] == "github.com"){
       $('.error').hide();
 
-      var projectName = explode[4].replace(/\.git$/, '');
+      if(typeof explode[4] !== 'undefined'){
+        var projectName = explode[4].replace(/\.git$/, '');
 
-      urlGithub += explode[3] + '/' + projectName + '/branches';
+        urlGithub += explode[3] + '/' + projectName + '/branches';
 
-      $('.loader-analyze').show();
+        $('.loader-analyze').show();
+        $('.loader-analyze-error').hide();
 
-      HTTP.call( 'GET', urlGithub, {}, function(error, response){
-        if(response.data.length > 0)
-        {
-          $('.select-element').remove();
-          for(var branch in response.data)
-          {
-            branchName = response.data[branch].name;
-            $('.browser-default').append('<option value="'+branchName+'" class="select-element">'+branchName+'</option>');
+        HTTP.call( 'GET', urlGithub, {}, function(error, response){
+          if(error){
             $('.loader-analyze').hide();
+            $('.loader-analyze-error').show();
           }
-        }
-      });
+          else {
+            if(response.data.length > 0)
+            {
+              $('.select-element').remove();
+              for(var branch in response.data)
+              {
+                branchName = response.data[branch].name;
+                $('.browser-default').append('<option value="'+branchName+'" class="select-element">'+branchName+'</option>');
+                $('.loader-analyze').hide();
+                $('.loader-analyze-error').hide();
+              }
+            }
+          }
+        });
+      }
 
   }
   else {
@@ -220,7 +230,7 @@ signUp = function(data){
         } else {
             sessionStorage.setItem("name",response.data.success.token);
             sessionStorage.setItem("token",response.data.success.token);
-            Router.go('home');
+            Router.go('/?successSignUp');
         }
     });
 }
@@ -236,7 +246,7 @@ signIn = function(data){
         } else {
             sessionStorage.setItem("name",response.data.success.name);
             sessionStorage.setItem("token",response.data.success.token);
-            Router.go('/');
+            Router.go('/?successLogIn');
         }
     });
 }
@@ -326,7 +336,7 @@ listMyProjects = function(){
 
 
 changeMessageLoader = function(id, message){
-    var timeAnimation = 400;
+  var timeAnimation = 400;
 
   $("#errorCVE").animate({left: '2000px'}, timeAnimation, "swing", function(){
     $("#errorCVE").html('<a target="_blank" href="https://cve.circl.lu/cve/'+id+'">'+message+"</a>");

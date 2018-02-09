@@ -530,6 +530,12 @@ input{
   font-weight: normal;
   color: #4285F4
 }
+.loader-analyze-error {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: normal;
+  color: #a94442;
+}
 
 #errorCVEparent{
   position: relative;

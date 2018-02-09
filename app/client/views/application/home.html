@@ -17,6 +17,10 @@
           Log in successful.
       </div>
 
+      <div id="successSignUp" class="alert alert-success" style="display:none; margin-bottom: 10px;">
+          Sign up successful.
+      </div>
+
       <div class="error alert alert-danger" style="display:none; margin-bottom: 10px;"></div>
 
       <p class="texteAccueil">Test flaws and vulnerabilities of a project php Git</p>
@@ -42,7 +46,7 @@
         <div class="div-form div-form-select">
           <div class="md-form md-select">
             <i class="fa fa-code-fork prefix grey-text"></i>
-              <label>Choose your branch<div class="loader-analyze" style="display:none">Récupération des branches en cours...</div></label>
+              <label>Choose your branch<div class="loader-analyze" style="display:none">Getting branches...</div><div class="loader-analyze-error" style="display:none">Error while getting branches</div></label>
               <select class="browser-default" name="branch">
                 <option value="" disabled selected>Choose your branch</option>
               </select>
