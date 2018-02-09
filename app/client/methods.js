@@ -234,8 +234,7 @@ signIn = function(data){
         } else {
             sessionStorage.setItem("name",response.data.success.name);
             sessionStorage.setItem("token",response.data.success.token);
-            displayLogin();
-            Router.go('/?successLogIn')
+            Router.go('/');
         }
     });
 }
